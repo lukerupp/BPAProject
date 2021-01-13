@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/lukerupp/BPAProject#readme",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "express": "^4.17.1",
     "sqlite3": "^5.0.1"
   }
