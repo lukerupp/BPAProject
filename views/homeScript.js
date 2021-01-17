@@ -1,5 +1,6 @@
 $(function () {
-  $("button#login-switch").click(function () {
+  //switch form with buttons
+  $("button#login-switch").click(function () { 
     $("div#login").show();
     $("div#signup").hide();
   });
@@ -13,14 +14,14 @@ $(function () {
     var email = $("input#email-login").val();
     var password = $("input#login-password").val();
 
-    var login_data = { email: email, password: password };
+    var login_data = { email: email, password: password }; //make json for login
 
-    $.ajax({
+    $.ajax({ //send login data to server
       type: "POST",
       url: "login",
       data: login_data,
       success: function (res) {
-        console.log("logged in");
+        console.log(res);
       },
     });
   });
@@ -31,19 +32,29 @@ $(function () {
     var email = $("input#signup-email").val();
     var password = $("input#signup-password").val();
 
-    var signup_data = {
+    var signup_data = { //make json for signup
       firstname: firstName,
       lastname: lastName,
       email: email,
       password: password,
     };
 
-    $.ajax({
+    $.ajax({ //send signup data to server
       type: "POST",
       url: "signup",
       data: signup_data,
       success: function (res) {
-        console.log("signed up");
+        if(res == "User registered"){
+          $("p#status").html("User registered - please go and sign in!")
+          console.log('User created')
+        }
+        else if(res == "user already exists"){
+          $("p#status").html("User already registered - please try another email")
+          console.log('User already existed')
+        }
+        else if(res =="illegal password"){
+          console.log("illegal password")
+        }
       },
     });
   });
