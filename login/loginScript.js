@@ -21,6 +21,12 @@ $(function () {
       url: "login",
       data: login_data,
       success: function (res) {
+        if(res == 'login successful'){
+          window.location.href = "/home.html"
+        }
+        if(res == 'login unsuccessful'){
+          $("p#status").html("Check password and email and try again")
+        }
         console.log(res);
       },
     });
@@ -53,6 +59,7 @@ $(function () {
           console.log('User already existed')
         }
         else if(res =="illegal password"){
+          $("p#status").html("Your password must have an upper case, a number and be at least 8 characters log")
           console.log("illegal password")
         }
       },
