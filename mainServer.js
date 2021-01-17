@@ -28,6 +28,7 @@ function openDatabase() {
 
 app.use(express.static("login")); //send initial html to client
 app.use(express.static('home'))
+app.use(express.static('reusables'))
 
 
 //login standard

@@ -8,7 +8,7 @@ lerna-debug.log*
 .vs
 .vscode
 *.pem
-database/
+*.db
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
