@@ -27,9 +27,8 @@ function openDatabase() {
 }
 
 app.use(express.static("login")); //send initial html to client
-app.use(express.static('home'))
-app.use(express.static('reusables'))
-
+app.use(express.static("home"));
+app.use(express.static("reusables"));
 
 //login standard
 app.post("/login", function (req, res) {
@@ -45,7 +44,7 @@ app.post("/login", function (req, res) {
     if (err) throw err;
     bcrypt.compare(password, hash).then(function (result) {
       if (result) {
-        res.send("login successful")
+        res.send("login successful");
         res.end();
       } else {
         res.send("login unsuccessful");
