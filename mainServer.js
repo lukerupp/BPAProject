@@ -2,7 +2,8 @@ const express = require("express"); //middle wear
 const app = express();
 const bcrypt = require("bcrypt"); // encrypt passwords
 const saltRounds = 15; //how many times to salt password
-const server = require("https"); //create server
+const secureServer = require("https"); //create server
+const server = require("http").createServer(app)
 const fs = require("fs"); //read filesystem for HTTPS key and cert file
 const SQL = require("sqlite3").verbose(); // interface with db
 const sanitizer = require("./serverScripts/sanitizer.js"); //sanitize user inputs
@@ -95,5 +96,7 @@ app.post("/signup", function (req, res) {
   });
 });
 
-var httpsServer = server.createServer(options, app); // start server on {PORT}
+var httpsServer = secureServer.createServer(options, app); // start server on {PORT}
 httpsServer.listen(PORT);
+
+server.listen(8080)
