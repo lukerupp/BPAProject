@@ -8,11 +8,17 @@ const fs = require("fs"); //read filesystem for HTTPS key and cert file
 const SQL = require("sqlite3").verbose(); // interface with db
 const sanitizer = require("./serverScripts/sanitizer.js"); //sanitize user inputs
 
-const options = {
-  //make json for HTTPS files
-  key: fs.readFileSync("key.pem", "utf-8"),
-  cert: fs.readFileSync("cert.pem", "utf-8"),
-};
+
+try {
+    const options = {
+        //make json for HTTPS files
+        key: fs.readFileSync("key.pem", "utf-8"),
+        cert: fs.readFileSync("cert.pem", "utf-8"),
+      };
+} catch (error) {
+    
+}
+
 
 app.use(express.urlencoded());
 app.use(express.json());
@@ -96,7 +102,12 @@ app.post("/signup", function (req, res) {
   });
 });
 
-var httpsServer = secureServer.createServer(options, app); // start server on {PORT}
-httpsServer.listen(PORT);
+try {
+    var httpsServer = secureServer.createServer(options, app); // start server on {PORT}
+    httpsServer.listen(PORT);   
+} catch (error) {
+    
+}
+
 
 server.listen(8080)
