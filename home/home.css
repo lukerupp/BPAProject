@@ -10,3 +10,9 @@ body {
     top: 10px;
     right:10px;
   }
+  #headerButtons {
+    margin: 0 auto;
+  }
+  #headerTitle {
+    margin: 0 auto;
+  }
