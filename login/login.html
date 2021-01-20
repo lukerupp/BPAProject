@@ -1,42 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="loginScript.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="login.css" />
+    <title>BPA PROJECT</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="loginScript.js" charset="utf-8"></script>
-  <link rel="stylesheet" href="login.css" />
-  <title>BPA PROJECT</title>
-</head>
+  </head>
 
-<body>
-  <div id="picker">
-    <button id="login-switch">login</button>
-    <button id="signup-switch">signup</button>
+  <body>
+    <h1>High Thrills Entertainment</h1>
+    <button id="home">weeweefart</button>
+    <button id="skrtyuhyuh">weewee</button>
+    <div id="loginOrSignupDesign"></div>
+    <div id="loginSignup">
+      <button id="login-switch">login</button>
+      <button id="signup-switch">signup</button>
+    </div>
+
+    <p id="status"></p>
+    <div id="login">
+      <label for="email-login">email</label>
+      <br>
+      <input type="text" name="email-login" id="email-login" /> <br />
+      <br>
+      <label for="login-password">password</label>
+      <br>
+      <input type="password" id="login-password" name="login-password" /> <br />
+      <button id="login-button">login</button>
+    </div>
+    <div id="signup" hidden>
+      <label for="first-name">first name</label>
+      <input type="text" id="first-name" name="first-name" /> <br />
+      <label for="last-name">last name</label>
+      <input type="text" id="last-name" name="last-name" /> <br />
+      <label for="signup-email">email</label>
+      <input type="text" id="signup-email" name="signup-email" /> <br />
+      <label for="signup-password">password</label>
+      <input type="password" id="signup-password" name="signup-password" />
+      <br />
+      <button id="signup-button">signup</button>
+    </div>
+  </body>
   </div>
-
-  <h1>High Thrills Entertainment</h1>
-  <p id="status"></p>
-  <div id="login">
-    <label for="email-login">email</label>
-    <input type="text" name="email-login" id="email-login" /> <br />
-    <label for="login-password">password</label>
-    <input type="password" id="login-password" name="login-password" /> <br />
-    <button id="login-button">login</button>
-  </div>
-  <div id="signup" hidden>
-    <label for="first-name">first name</label>
-    <input type="text" id="first-name" name="first-name" /> <br />
-    <label for="last-name">last name</label>
-    <input type="text" id="last-name" name="last-name" /> <br />
-    <label for="signup-email">email</label>
-    <input type="text" id="signup-email" name="signup-email" /> <br />
-    <label for="signup-password">password</label>
-    <input type="password" id="signup-password" name="signup-password" />
-    <br />
-    <button id="signup-button">signup</button>
-  </div>
-</body>
-
 </html>
