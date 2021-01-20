@@ -22,6 +22,7 @@ $(function () {
       data: login_data,
       success: function (res) {
         if(res == 'login successful'){
+          document.cookie = 'email=' + email;
           window.location.href = "/home.html"
         }
         if(res == 'login unsuccessful'){
@@ -66,3 +67,4 @@ $(function () {
     });
   });
 });
+

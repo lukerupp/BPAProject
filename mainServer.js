@@ -35,6 +35,7 @@ function openDatabase() {
 
 app.use(express.static("home")); //send initial html to client
 app.use(express.static("login"));
+app.use(express.static('admin'))
 app.use(express.static("reusables"));
 
 //login standard
