@@ -47,6 +47,11 @@ app.post("/login", function (req, res) {
     var db = openDatabase();
     var SQL_find = `SELECT * FROM profiles WHERE email = '${email}'`;
     db.all(SQL_find, [], function (err, results) {
+        if(results.length==0){
+            res.send('login unsuccessful');
+            res.end();
+            return;
+        }
         var hash = results[0].password;
         if (err) throw err;
         bcrypt.compare(password, hash).then(function (result) {

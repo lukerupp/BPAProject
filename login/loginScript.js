@@ -26,9 +26,9 @@ $(function () {
       data: login_data,
       success: function (res) {
         if(res == 'login successful'){
-          window.location.href = "/home.html"
+          window.location.href = "/index.html"
         }
-        if(res == 'login unsuccessful'){
+        else if(res == 'login unsuccessful'){
           $("p#status").html("Check password and email and try again")
         }
         console.log(res);
