@@ -33,6 +33,7 @@ app.use(express.static("home")); //send initial html to client
 app.use(express.static("login"));
 app.use(express.static("reusables"));
 app.use(express.static("admin"));
+app.use(express.static("reservations"))
 
 //login standard
 app.post("/login", function (req, res) {
@@ -57,7 +58,6 @@ app.post("/login", function (req, res) {
     bcrypt.compare(password, hash).then(function (result) {
       if (result) {
         if(check == 'true'){
-            console.log('sening name')
             res.send(name);
             res.end();
             return;
