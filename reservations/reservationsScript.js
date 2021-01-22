@@ -2,11 +2,8 @@ $(function(){
     $("#reservationsHeader").load('header.html')
     $("#reservationsFooter").load('footer.html')
 
-    if(localStorage.getItem("email")){
-   
+    if(!localStorage.getItem("email")){
+        window.location.href = "/login.html"
     }
-    else{
-    //not logged in
-    console.log('no log in found')
-    }
+    
 })
