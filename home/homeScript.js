@@ -16,12 +16,13 @@ $(function(){
           console.log(res)
           localStorage.setItem("name",res);
           $("h2#loginAs").html(`logged in as ${res}`)
-          $("button#login-page").hide()
+          
         },
       });
     }
     else{
     //not logged in
+    $("h2#loginAs").html(`<button id="login-page" onclick="window.location.href = '/login.html'" >login</button>`)
     console.log('no log in found')
     }
 })
