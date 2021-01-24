@@ -18,13 +18,21 @@ $(function(){
 })
 
 function makeReservations(reservationName){
-    var data = {name:localStorage.getItem("name"),resName:reservationName, time:""}
+    var id = reservationName.replaceAll(' ','-')
+    var time = $(`#${id}`).val()
+    if(time==""){ //checks if time was set
+        console.log("no time given")
+        return;
+    }
+    console.log(time)
+    var data = {name:localStorage.getItem("name"),resName:reservationName, time:time}
     $.ajax({
         type:"POST",
         data:data,
         url:"makeReservations",
         success:function(res){
-            
+            if(res == "reservation made"){$("p#response").html("reservations made")}
+            else if(res == "reservation not made"){$("p#response").html("reservations not made")}
         }
     });
 }
@@ -37,11 +45,12 @@ function parseAndShow(data){
         dataSplit[i] = dataSplit[i] + "}"
         console.log(dataSplit[i])
         parsedData.push(JSON.parse(dataSplit[i]))
+        var id = parsedData[i].name.replaceAll(' ','-')
         if(parsedData[i].type == "ride"){
-            $("div#rides").append(`<p>${parsedData[i].name} <button onclick="makeReservations('${parsedData[i].name}')">Reserve</button>  <input  min="09:00" max="18:00" type="time"></p>`)
+            $("div#rides").append(`<p>${parsedData[i].name}</p> <button onclick="makeReservations('${id}')">Reserve</button>  <input id="${id}" type="time">`)
         }
         else{
-            $("div#restaurants").append(`<p>${parsedData[i].name} <button onclick="makeReservations('${parsedData[i].name}')">Reserve</button> <input  min="09:00" max="18:00" type="time"> </p>`)
+            $("div#restaurants").append(`<p>${parsedData[i].name}</p> <button onclick="makeReservations('${id}')">Reserve</button>  <input id="${id}" type="time">`)
         }
     }
     console.log(parsedData)

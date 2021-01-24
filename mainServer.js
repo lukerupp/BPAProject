@@ -7,6 +7,7 @@ const server = require("http").createServer(app);
 const fs = require("fs"); //read filesystem for HTTPS key and cert file
 const SQL = require("sqlite3").verbose(); // interface with db
 const sanitizer = require("./serverScripts/sanitizer.js"); //sanitize user inputs
+const converter = require("./serverScripts/timeConverter.js");
 
 try {
   const options = {
@@ -139,15 +140,42 @@ app.get("/getRidesRestaurants", function (req, res) {
 });
 app.post("/makeReservations", function (req, res) {
   var name = req.body.name;
-  var requestName = req.body.resName
-  var SQL_getRes = `SELECT * FROM reservations WHERE name = ${name}`
+  var reservationName = req.body.resName
+  var time = req.body.time;
+  console.log(time)
+  var SQL_getRes = `SELECT * FROM reservations WHERE guestName = "${name}"`
+  var SQL_insertRes = `INSERT INTO reservations(guestName,rideRestaurantsName,time) VALUES("${name}","${reservationName}",${converter.timeConverter(time)})`
   db = openDatabase();
   db.all(SQL_getRes,[],function(err,response){
     if(err) throw err;
-    
+    if(response.length==0){ //add reservations - no reservations found
+      db.run(SQL_insertRes,[],function(err2){
+        if(err2) throw(err2);
+      })
+      res.send("reservations made")
+      return;  
+    }
+    //check time
+    var conflict = false;
+    for(var i = 0; i<=response.length-1;i++){
+      var responseTime = response[i].time
+      var newTime = converter.timeConverter(time)
+      console.log(`${responseTime}, ${newTime}`)
+      if(Math.abs(responseTime-newTime) <.5){
+        conflict = true;
+      }
+    }
+     if(!conflict){ //if time is at least 30 mins before or after already scheduled times
+      res.send("reservation made")
+      db.run(SQL_insertRes,[],function(err2){
+        if(err2) throw(err2);
+      })
+    }
+    else{
+      res.send("reservation not made")
+    }
   })
   console.log('---------------')
-  res.end()
 });
 try {
   var httpsServer = secureServer.createServer(options, app); // start server on {PORT}

@@ -7,3 +7,14 @@ body {
   #all-center {
     text-align: center;
   }
+  header{
+    position: sticky;
+    top: 0px;
+    background-color: gray;
+    padding: 5px;
+  }
+  button{
+    color:black;
+    background-color: slategray;
+    border: 1px solid black;
+  }
