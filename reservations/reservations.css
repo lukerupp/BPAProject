@@ -4,3 +4,10 @@ body {
     font-size: 18px;
     padding: 10px;
   }
+  div#rides{
+    color:black;
+       
+  }
+  div#restaurants{
+    color:white;
+  }

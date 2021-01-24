@@ -33,7 +33,7 @@ app.use(express.static("home")); //send initial html to client
 app.use(express.static("login"));
 app.use(express.static("reusables"));
 app.use(express.static("admin"));
-app.use(express.static("reservations"))
+app.use(express.static("reservations"));
 
 //login standard
 app.post("/login", function (req, res) {
@@ -42,7 +42,7 @@ app.post("/login", function (req, res) {
   var email = req.body.email;
   var password = req.body.password;
   var check = req.body.checkdata;
-  console.log(check)
+  console.log(check);
 
   var db = openDatabase();
   var SQL_find = `SELECT * FROM profiles WHERE email = '${email}'`;
@@ -57,12 +57,12 @@ app.post("/login", function (req, res) {
     if (err) throw err;
     bcrypt.compare(password, hash).then(function (result) {
       if (result) {
-        if(check == 'true'){
-            res.send(name);
-            res.end();
-            return;
+        if (check == "true") {
+          res.send(name);
+          res.end();
+          return;
         }
-        res.send('login successful');
+        res.send("login successful");
         res.end();
       } else {
         res.send("login unsuccessful");
@@ -113,7 +113,42 @@ app.post("/signup", function (req, res) {
   });
 });
 
-
+app.get("/getRidesRestaurants", function (req, res) {
+  res.setHeader("Content-Type", "text/html");
+  db = openDatabase();
+  var SQL_Restaurants = "SELECT * FROM restaurantsTimes";
+  var SQL_rides = "SELECT * FROM rideTimes";
+  //return all restaurants
+  db.all(SQL_Restaurants, [], function (err, response) {
+    if (err) throw err;
+    response.forEach(function (element) {
+      var restaurant_string = `{"name":"${element.name}", "time":${element.time}, "type":"${element.type}"}`;
+      res.write(String(restaurant_string));
+    });
+  });
+  //return all rides
+  db.all(SQL_rides, [], function (err, response) {
+    if (err) throw err;
+    response.forEach(function (element) {
+      var ride_string = `{"name":"${element.name}", "time":${element.time}, "type":"${element.type}"}`;
+      res.write(String(ride_string));
+    });
+    res.end();
+  });
+  db.close();
+});
+app.post("/makeReservations", function (req, res) {
+  var name = req.body.name;
+  var requestName = req.body.resName
+  var SQL_getRes = `SELECT * FROM reservations WHERE name = ${name}`
+  db = openDatabase();
+  db.all(SQL_getRes,[],function(err,response){
+    if(err) throw err;
+    
+  })
+  console.log('---------------')
+  res.end()
+});
 try {
   var httpsServer = secureServer.createServer(options, app); // start server on {PORT}
   httpsServer.listen(PORT);

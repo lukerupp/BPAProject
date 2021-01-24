@@ -16,7 +16,6 @@ $(function(){
           console.log(res)
           localStorage.setItem("name",res);
           $("h2#loginAs").html(`logged in as ${res}`)
-          
         },
       });
     }
