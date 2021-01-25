@@ -81,7 +81,7 @@ app.post("/signup", function (req, res) {
   var email = sanitizer.sanitize(req.body.email);
   var password = req.body.password;
   //check if password meets standards
-  var passwordR = "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"; //password requirements
+  var passwordR = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/g; //password requirements
   if (!password.match(passwordR)) {
     console.log(password)
     res.send("illegal password");
