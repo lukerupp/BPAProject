@@ -1,6 +1,6 @@
 $(function(){
-  $(".header").load('header.html')
-  $(".footer").load('footer.html')
+  $("#loginHeader").load('header.html')
+  $("#loginFooter").load('footer.html')
 })
 $(function () {
   //switch form with buttons
