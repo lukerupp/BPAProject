@@ -9,13 +9,12 @@ const SQL = require("sqlite3").verbose(); // interface with db
 const sanitizer = require("./serverScripts/sanitizer.js"); //sanitize user inputs
 const converter = require("./serverScripts/timeConverter.js");
 
-try {
   const options = {
     //make json for HTTPS files
     key: fs.readFileSync("key.pem", "utf-8"),
     cert: fs.readFileSync("cert.pem", "utf-8"),
   };
-} catch (error) {}
+
 
 app.use(express.urlencoded());
 app.use(express.json());
@@ -82,8 +81,9 @@ app.post("/signup", function (req, res) {
   var email = sanitizer.sanitize(req.body.email);
   var password = req.body.password;
   //check if password meets standards
-  var passwordR = "(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,}"; //password requirements
+  var passwordR = "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"; //password requirements
   if (!password.match(passwordR)) {
+    console.log(password)
     res.send("illegal password");
     res.end();
     return;
