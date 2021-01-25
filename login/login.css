@@ -1,7 +1,8 @@
-body {
-  background-color: gray;
-  color: red;
-  font-size: 18px;
-  padding: 10px;
-  border: 1px solid black;
+#loginOrSignupDesign {
+  border: 2px solid;
+  width: 400px;
+  margin: 0 auto;
+}
+.header {
+margin: 0 auto;
 }

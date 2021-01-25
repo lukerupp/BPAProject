@@ -1,3 +1,7 @@
+$(function(){
+  $(".header").load('header.html')
+  $(".footer").load('footer.html')
+})
 $(function () {
   //switch form with buttons
   $("button#login-switch").click(function () { 
@@ -14,21 +18,23 @@ $(function () {
     var email = $("input#email-login").val();
     var password = $("input#login-password").val();
 
-    var login_data = { email: email, password: password }; //make json for login
+    var login_data = { email: email, password: password, checkdata:false }; //make json for login
 
     $.ajax({ //send login data to server
-      type: "POST",
+      async: true,
       url: "login",
+      type:"POST",
       data: login_data,
       success: function (res) {
         if(res == 'login successful'){
-          document.cookie = 'email=' + email;
-          window.location.href = "/home.html"
+          window.location.href = "/index.html"
+          localStorage.setItem("email",email);
+          localStorage.setItem("password",password);
         }
-        if(res == 'login unsuccessful'){
+        else if(res == 'login unsuccessful'){
           $("p#status").html("Check password and email and try again")
         }
-        console.log(res);
+        
       },
     });
   });
@@ -47,6 +53,7 @@ $(function () {
     };
 
     $.ajax({ //send signup data to server
+      async: true,
       type: "POST",
       url: "signup",
       data: signup_data,
@@ -67,4 +74,3 @@ $(function () {
     });
   });
 });
-
