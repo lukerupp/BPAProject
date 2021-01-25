@@ -10,11 +10,22 @@
   #headerTitle {
     margin: 0 auto;
   }
-  #loginOrSignupDesign {
-    border: 2px solid;
-    width: 400px;
-    margin: 0 auto;
-  }
   #all-center {
     text-align: center;
   }
+  #resturauntTable,
+  #ridesTable,
+.tableHHome, 
+.tableDHome{
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 5px;
+  text-align: center;
+  margin: auto;
+}
+#homepageStuff {
+  text-align: center;
+  background-color: beige;
+  color: #ba3f38;
+  line-height: 2;
+}
