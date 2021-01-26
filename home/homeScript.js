@@ -1,7 +1,9 @@
 $(function(){
     $("#1homeheader").load('header.html')
     $("#homefooter").load('footer.html')
-
+    $("#tosHeader").load('header.html')
+    $("#tosFooter").load('footer.html')
+    
     var email = localStorage.getItem('email')
     var password = localStorage.getItem('password')
     var check_data = {email:email,password:password, checkdata:true} 
