@@ -9,6 +9,7 @@
   }
   #headerTitle {
     margin: 0 auto;
+    text-align: center;
   }
   #all-center {
     text-align: center;
@@ -29,3 +30,4 @@
   color: #ba3f38;
   line-height: 2;
 }
+
