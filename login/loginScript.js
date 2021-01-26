@@ -1,7 +1,4 @@
-$(function(){
-  $("#loginHeader").load('header.html')
-  $("#loginFooter").load('footer.html')
-})
+
 $(function () {
   //switch form with buttons
   $("button#login-switch").click(function () { 
