@@ -34,10 +34,88 @@ function openDatabase() {
 app.use(express.static("home")); //send initial html to client
 app.use(express.static("login"));
 app.use(express.static("reusables"));
-app.use(express.static("admin"));
 app.use(express.static("reservations"));
 app.use(express.static("itinerary"))
+app.use(express.static("admin"))
+//admin login
+app.get("/admin",function(req,res){
+    res.sendFile('admin/admin.html' , {root: __dirname })
+})
 
+app.post("/getData",function(req,res){
+    var email = req.body.email;
+    var password = req.body.password;
+
+    var db = openDatabase();
+    var SQL_find = `SELECT * FROM profiles WHERE email = '${email}'`;
+    
+    db.all(SQL_find, [], function(err, results) {
+        if (results.length == 0) {
+            res.send("not found")
+            res.end();
+            return;
+        }
+        var isAdmin = results[0].is_admin;
+        if(isAdmin==0){
+            res.send("not admin")
+            return;
+        }
+        var hash = results[0].password;
+        if (err) throw err;
+        bcrypt.compare(password, hash).then(function(result) {
+            if (result) {
+                var SQL_profiles = `SELECT * FROM profiles`
+                var SQL_reservations = `SELECT * FROM reservations`
+                db.all(SQL_profiles,[],function(err3,result3){
+                    if(err3) throw err3;
+                    db.all(SQL_reservations,[],function(err2,results2){
+                        if (err2) throw err2;
+                        var response = [result3,results2]
+                        console.log(response)
+                        res.send(response)
+                    })
+                })
+            } else {
+                res.send("unsuccessful");
+                res.end();
+            }
+        });
+    });
+
+})
+app.post("/adminLogin",function(req,res){
+    console.log("login request");
+    console.log(req.body);
+    var email = req.body.email;
+    var password = req.body.password;
+
+    var db = openDatabase();
+    var SQL_find = `SELECT * FROM profiles WHERE email = '${email}'`;
+    
+    db.all(SQL_find, [], function(err, results) {
+        if (results.length == 0) {
+            res.send("not found")
+            res.end();
+            return;
+        }
+        var isAdmin = results[0].is_admin;
+        if(isAdmin==0){
+            res.send("not admin")
+            return;
+        }
+        var hash = results[0].password;
+        if (err) throw err;
+        bcrypt.compare(password, hash).then(function(result) {
+            if (result) {
+                res.send("successful");
+                res.end();
+            } else {
+                res.send("unsuccessful");
+                res.end();
+            }
+        });
+    });
+})
 //login standard
 app.post("/login", function(req, res) {
     console.log("login request");

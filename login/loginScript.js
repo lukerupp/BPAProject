@@ -61,6 +61,9 @@ $(function () {
         if(res == "User registered"){
           $("p#status").html("User registered - please go and sign in!")
           console.log('User created')
+          localStorage.setItem("email",email);
+          localStorage.setItem("password",password);
+          window.location.href = "/index.html"
         }
         else if(res == "user already exists"){
           $("p#status").html("User already registered - please try another email")

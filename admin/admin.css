@@ -1,14 +1,10 @@
-body{
-    background-color: #181818;
-}
+
 #login{
     margin: auto;
     margin-top: 32px;
     width: 50%;
     border: 3px solid black;
     padding: 16px;
-    background-color: #0ff;
-    box-shadow: 0px 0px 32px #0ff;
     border-radius: 32px;
 }
 
@@ -17,6 +13,6 @@ button{
     color: #fff;
 }
 
-button:hover{
-    background-color: #686868;
-}
+table, th, td {
+    border: 1px solid white;
+  }

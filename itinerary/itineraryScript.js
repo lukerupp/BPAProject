@@ -34,7 +34,7 @@ $(function() {
         success: function(res) {
             console.log(res)
             var reservations = res;
-            for (var i = 0; i < reservations.length - 1; i++) {
+            for (var i = 0; i < reservations.length; i++) {
                 var time = ConvertTime(reservations[i].time)
                 $("table#itinerary").append(`<tr> <td>${reservations[i].rideRestaurantsName}</td> <td>${time}</td> </tr>`)
             }
