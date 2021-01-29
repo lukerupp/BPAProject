@@ -28,6 +28,7 @@ $(function(){
         url:"getData",
         data:{email:email,password:password},
         success: function (res){
+            
             var people = res[0];
             var reservations = res[1];
             for(var i = 0;i<people.length;i++){

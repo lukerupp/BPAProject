@@ -8,14 +8,6 @@ const fs = require("fs"); //read filesystem for HTTPS key and cert file
 const SQL = require("sqlite3").verbose(); // interface with db
 const sanitizer = require("./serverScripts/sanitizer.js"); //sanitize user inputs
 const converter = require("./serverScripts/timeConverter.js");
-try {
-    const options = {
-        //make json for HTTPS files
-        key: fs.readFileSync("key.pem", "utf-8"),
-        cert: fs.readFileSync("cert.pem", "utf-8"),
-    };
-} catch (error) {}
-
 
 app.use(express.urlencoded());
 app.use(express.json());
@@ -43,6 +35,7 @@ app.get("/admin",function(req,res){
 })
 
 app.post("/getData",function(req,res){
+    console.log("getting data")
     var email = req.body.email;
     var password = req.body.password;
 
@@ -52,12 +45,14 @@ app.post("/getData",function(req,res){
     db.all(SQL_find, [], function(err, results) {
         if (results.length == 0) {
             res.send("not found")
+            console.log("account not found")
             res.end();
             return;
         }
         var isAdmin = results[0].is_admin;
-        if(isAdmin==0){
+        if(!isAdmin==0){
             res.send("not admin")
+            console.log("not admin account")
             return;
         }
         var hash = results[0].password;
@@ -72,10 +67,12 @@ app.post("/getData",function(req,res){
                         if (err2) throw err2;
                         var response = [result3,results2]
                         console.log(response)
+                        console.log("info sent")
                         res.send(response)
                     })
                 })
             } else {
+                console.log("no good info")
                 res.send("unsuccessful");
                 res.end();
             }
@@ -272,10 +269,10 @@ app.post("/itinerary", function(req, res) {
             if (result) {
                 //good login
                 var SQL_getRes = `SELECT * FROM reservations WHERE guestName = "${name}"`
-                db.all(SQL_getRes, function(err, result) {
-                    if (err) throw err;
-                    res.send(result)
-                    console.log(result)
+                db.all(SQL_getRes, function(err2, result2) {
+                    if (err2) throw err2;
+                    res.send(result2)
+                    console.log(result2)
                 })
             }
         });
@@ -283,6 +280,12 @@ app.post("/itinerary", function(req, res) {
 
 })
 try {
+    const options = {
+        //make json for HTTPS files
+        key: fs.readFileSync("key.pem", "utf-8"),
+        cert: fs.readFileSync("cert.pem", "utf-8"),
+}
+    console.log("trying to make https server")
     var httpsServer = secureServer.createServer(options, app); // start server on {PORT}
     httpsServer.listen(PORT);
 } catch (error) {}

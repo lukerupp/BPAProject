@@ -32,6 +32,7 @@ $(function() {
         url: "itinerary",
         data: check_data,
         success: function(res) {
+            console.log("showing data")
             console.log(res)
             var reservations = res;
             for (var i = 0; i < reservations.length; i++) {
